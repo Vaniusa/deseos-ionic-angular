@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {DeseosService} from '../../services/deseos.service';
 import {Router} from '@angular/router';
 import {AlertController} from '@ionic/angular';
+import {Lista} from '../../models/lista.models';
 
 @Component({
     selector: 'app-tab1',
@@ -9,6 +10,8 @@ import {AlertController} from '@ionic/angular';
     styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+    showBlock: any;
+    notShowBlock: any;
 
     constructor(public deseosService: DeseosService,
                 private  router: Router,
@@ -41,12 +44,16 @@ export class Tab1Page {
                             return;
                         }
                         const listaId = this.deseosService.crearLista(data.titulo);
-                        this.router.navigateByUrl(`/tabs/tab1/agregar/${ listaId }`);
+                        this.router.navigateByUrl(`/tabs/tab1/agregar/${listaId}`);
                     }
                 }
             ]
         });
         alert.present();
+    }
+
+    listaSeleccionada(lista: Lista) {
+        this.router.navigateByUrl(`/tabs/tab1/agregar/${lista.id}`);
     }
 
 }
